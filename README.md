@@ -1,9 +1,13 @@
 # Day 3 on Github
 <a href="http://tinypic.com?ref=29xcgns" target="_blank"><img src="http://i61.tinypic.com/29xcgns.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
+<p>
 Above should be a screenshot of me using reverse\_complement.py. I copied it into a folder called boot_strap.
 So many issues everywhere. Need more time. Need less coffee. 
+</p>
 
-
+<p>
+Will try to use vim for editing Python code, but in general it seems that I will continue to stray into using Idlex as it has numbered lines and has a friendly gui. I can see how vim would be able to navigate the file much faster, but it is still new territory so we'll see. I also have a hard time navigating in Ubuntu at all seeing as I have no idea where any files are.
+</p>
 
 
 

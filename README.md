@@ -45,7 +45,7 @@ It makes making .py files much smoother(command lines scare me)(gotta use comman
 </p>
 
 <p>
-I intend to follow the teachings and tutorials of Al Sweigart. 
+I intend to follow the teachings and tutorials of [Al Sweigart](http://inventwithpython.com/). 
 He has a few books on using python and pygame for making simple games.
 Most importantly his books come free as .pdf files on his site. 
 </p>

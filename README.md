@@ -1,10 +1,4 @@
-# Development environment
-
-At this time I would like to take a moment of silence for my window.
-
--
--
-- 
+<h1> Development Environment </h1>
 
 No seriously (O.O). 
 My window is pretty much paint over hollow spaces. Darn termites.

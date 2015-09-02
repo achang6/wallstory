@@ -11,6 +11,10 @@ So many issues everywhere. Need more time. Need less coffee.
 <h1> Development Environment </h1>
 
 <p>
+I no longer have a window....
+</p>
+
+<p>
   No seriously (O.O). 
   My window is pretty much paint over hollow spaces. Darn termites.
 </p>

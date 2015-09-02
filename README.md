@@ -1,7 +1,16 @@
+# Day 3 on Github
+<a href="http://tinypic.com?ref=29xcgns" target="_blank"><img src="http://i61.tinypic.com/29xcgns.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
+Above should be a screenshot of me using reverse\_complement.py. I copied it into a folder called boot_strap.
+So many issues everywhere. Need more time. Need less coffee. 
+
+
+
+
+
+
 <h1> Development Environment </h1>
 
 <p>
-</t>
   No seriously (O.O). 
   My window is pretty much paint over hollow spaces. Darn termites.
 </p>

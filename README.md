@@ -1,4 +1,4 @@
- Day 3 on Github
+# Day 3 on Github
 <a href="http://tinypic.com?ref=29xcgns" target="_blank"><img src="http://i61.tinypic.com/29xcgns.jpg" border="0" alt="Image and video hosting by TinyPic"></a>
 
 Above should be a screenshot of me using reverse\_complement.py. I copied it into a folder called boot_strap.

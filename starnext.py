@@ -64,14 +64,7 @@ def game_cycle():
         pygame.display.update()
         self.screen.blit(self.background, (0,0))
 
-
-class Platform(pygame.sprite.Sprite):
-    def __init__(self, image, x, y):
-        self.image   = image
-        self.rect = self.image.get_rect
-        self.rect.x = x
-        self.rect.y = y
-    
+   
 
 class User(pygame.sprite.Sprite):
     def __init__(self, image, x, y):

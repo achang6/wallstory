@@ -1,4 +1,5 @@
 import os
+import pygame
 
 
 def Readmapsfile(filename):
@@ -17,7 +18,7 @@ def Readmapsfile(filename):
     map_object = []     # object?
     
     # processing
-    for line_num in range(len(content)):
+    for line_num in range(len(guts)):
         line = guts[line_num].rstrip('\r\n')
 
         # ; = comment, remove from guts
@@ -31,23 +32,51 @@ def Readmapsfile(filename):
         # end of a map/level
         elif line == '' and len(map_lines) > 0:
             # make all lines in map the same width
-            max_width = 0
+            max_width = -1
             # find widest line's width
             for i in range(len(map_lines)):
                 if len(map_lines[i]) > max_width:
                     max_width = len(map_lines[i])
+
             # add blanks until each line as long as widest
             for i in range(len(map_lines)):
-                map_lines[i] += '' * (max_width - len(map_lines[i]))
+                map_lines[i] += ' ' * (max_width - len(map_lines[i]))
 
             # make map object
             for x in range(len(map_lines[0])):                  
                 map_object.append([])                           # add x amount of columns
-            for y in range(len(map_lines[0])):                  # row
+            for y in range(len(map_lines)):                  # row
                 for x in range(max_width):                      # column in row
                     map_object[x].append(map_lines[y][x])       # add column value for that row
 
             # character processing
+            x_start = None
+            y_start = None
+            for x in range(max_width):
+                for y in range(len(map_object[x])):
+                    if map_object[x][y] in ('@', '+'):
+                        # '@' represent player in text map
+                        x_start = x
+                        y_start = y
+
+            # existence
+            assert x_start != None and y_start != None, 'Level %s in %s missing the start point "@" or "+"' % (level_num +1, filename)
+            
+            # create level object
+            game_object  = {'player': (x_start, y_start)}
+            level_object = {'width': max_width,
+                    'height': len(map_object),
+                    'map_object': map_object,
+                    'start_state': game_object}
+            levels.append(level_object)
+
+            # reset variables for next map
+            map_lines = []
+            map_object = []
+            game_object = {}
+            level_num += 1
+    return levels
+
 
 
 

@@ -7,27 +7,30 @@ from wallconstants import *        # constants: FPS, WINW, WINH, TILEW, TILEH, T
 
 pygame.init()                                                           # initiate pygame
 pygame.display.set_caption('Wallstory 0')                               # set window caption
-screen = pygame.display.set_mode((WINW, WINH))         # set window surface object
-background = pygame.Surface(screen.get_size()).convert()      # set background surface, convert for blitting
-background.fill(green)                                             # OPTIONAL: color the background
+screen = pygame.display.set_mode((WINW, WINH))                          # set window surface object
+background = pygame.Surface(screen.get_size()).convert()                # set background surface, convert for blitting
+background.fill(green)                                                  # OPTIONAL: color the background
 sprite_dictionary = readfiles.Readimagesfile('starnext_images.txt')     # set image dictionary
-levels = readfiles.Readmapsfile('starPusherLevels.txt')            # set levels array/dictionary
-clock = pygame.time.Clock()                                        # set pygame clock
-playtime = 0.0                                                     # OPTIONAL: container for time app active
-font = pygame.font.SysFont('mono', 12, bold = True)                # set font
-current_level = 0                                                  # track index of current map
+levels = readfiles.Readmapsfile('starPusherLevels.txt')                 # set levels array/dictionary
+clock = pygame.time.Clock()                                             # set pygame clock
+playtime = 0.0                                                          # OPTIONAL: container for time app active
+font = pygame.font.SysFont('mono', 12, bold = True)                     # set font
+levelnum = 0                                                            # track index of current level
+
 sprite_list     = pygame.sprite.Group()
 platform_list   = pygame.sprite.Group()
-for x in range(levels[current_level]['width']):
-    for y in range(levels[current_level]['height']):
-        if levels[current_level]['map_object'][x][y] == '#':
-            platform = Platform(sprite_dictionary['corner'],levels[current_level]['map_object'][x],levels[current_level]['map_object'][x][y])
-            platform_list.add(platform)
+
 
 
 def game_cycle():
     Playing = True
-    currentLevel = 0
+    
+    for x in range(levels[levelnum]['width']):
+        for y in range(levels[levelnum]['height']):
+            if levels[levelnum]['map_object'][x][y] == '#':
+                platform = Platform(sprite_dictionary['corner'],levels[levelnum]['map_object'][x],levels[levelnum]['map_object'][x][y])
+                platform_list.add(platform)
+
     # main loop ------------------------------------------------------------
     while Playing:
         needredraw = False

@@ -33,8 +33,10 @@ def plats_assemble(level_index):
     for x in range(levels[lvl]['width']):
         for y in range(levels[lvl]['height']):
             if levels[lvl]['map_object'][x][y] == '#':
+                x *= TILEW
+                y *= TILEH
                 plats = pygame.sprite.Sprite()
-                plats = platform.Platform(sprite_lib['corner'])
+                plats = platform.Platform((x,y), sprite_lib['corner'])
                 platform_list.add(plats)
                 sprite_list.add(plats)
     
@@ -53,6 +55,8 @@ def game_cycle():
     migrate = False
     plats_assemble(lvl)
     mainmonkey = User(sprite_lib['horngirl'], levels[lvl]['xy_state'][0], levels[lvl]['xy_state'][1])
+    mainmonkey.walls = platform_list
+    sprite_list.add(mainmonkey)
 
     # main loop ------------------------------------------------------------
     while Playing:
@@ -64,7 +68,7 @@ def game_cycle():
             sprite_list.add(mainmonkey)
 
         
-        # even handling loop -----------------------------------------------
+        # event handling loop -----------------------------------------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -99,14 +103,11 @@ def game_cycle():
                     mainmonkey.accelerate(-pixspeed, pixspeed)
         # work space ------------------------------------------------------
 
-        platform_list.draw(background)
+        sprite_list.update()
+        sprite_list.clear(background)
+        sprite_list.draw(background)
         pygame.display.update()
         self.screen.blit(self.background, (0,0))
-
-   
-
-
-
 
 
 if __name__ == '__main__':

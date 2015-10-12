@@ -3,6 +3,8 @@ import pygame
 import os
 import readfiles  # Readmapsfile, Readimagesfile
 from wallconstants import *        # constants: FPS, WINW, WINH, TILEW, TILEH, TILEF, lowercase colors
+import user
+import platform
 
 
 pygame.init()                                                           # initiate pygame
@@ -10,7 +12,7 @@ pygame.display.set_caption('Wallstory 0')                               # set wi
 screen = pygame.display.set_mode((WINW, WINH))                          # set window surface object
 background = pygame.Surface(screen.get_size()).convert()                # set background surface, convert for blitting
 background.fill(green)                                                  # OPTIONAL: color the background
-sprite_dictionary = readfiles.Readimagesfile('starnext_images.txt')     # set image dictionary
+sprite_lib = readfiles.Readimagesfile('starnext_images.txt')     # set image dictionary
 levels = readfiles.Readmapsfile('starPusherLevels.txt')                 # set levels array/dictionary
 clock = pygame.time.Clock()                                             # set pygame clock
 playtime = 0.0                                                          # OPTIONAL: container for time app active
@@ -20,16 +22,25 @@ levelnum = 0                                                            # track 
 sprite_list     = pygame.sprite.Group()
 platform_list   = pygame.sprite.Group()
 
+# Function zone ##################################################################################################
+
+# add platforms of current level to platform list
+# send levelnum as argument for level_index parameter
+def plats_assemble(level_index):        
+    lvl = level_index
+    platform_list.empty()
+    for x in range(levels[lvl]['width']):
+        for y in range(levels[lvl]['height']):
+            if levels[lvl]['map_object'][x][y] == '#':
+                plats = pygame.sprite.Sprite()
+                plats = platform.Platform(sprite_lib['corner'])
+                platform_list.add(plats)
+
 
 
 def game_cycle():
     Playing = True
-    
-    for x in range(levels[levelnum]['width']):
-        for y in range(levels[levelnum]['height']):
-            if levels[levelnum]['map_object'][x][y] == '#':
-                platform = Platform(sprite_dictionary['corner'],levels[levelnum]['map_object'][x],levels[levelnum]['map_object'][x][y])
-                platform_list.add(platform)
+
 
     # main loop ------------------------------------------------------------
     while Playing:
@@ -61,6 +72,8 @@ def game_cycle():
                     direction = DOWNL
         # work space ------------------------------------------------------
 
+        plats_assemble(levelnum)
+        platform_list.draw(background)
         pygame.display.update()
         self.screen.blit(self.background, (0,0))
 
@@ -71,4 +84,4 @@ def game_cycle():
 
 
 if __name__ == '__main__':
-    HelloWorld().run()
+    game_cycle()

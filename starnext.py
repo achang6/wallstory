@@ -17,34 +17,53 @@ levels = readfiles.Readmapsfile('starPusherLevels.txt')                 # set le
 clock = pygame.time.Clock()                                             # set pygame clock
 playtime = 0.0                                                          # OPTIONAL: container for time app active
 font = pygame.font.SysFont('mono', 12, bold = True)                     # set font
-levelnum = 0                                                            # track index of current level
+lvl = 0                                                                 # track index of current level
 
 sprite_list     = pygame.sprite.Group()
 platform_list   = pygame.sprite.Group()
 
+
+
 # Function zone ##################################################################################################
 
-# add platforms of current level to platform list
-# send levelnum as argument for level_index parameter
-def plats_assemble(level_index):        
+def plats_assemble(level_index):
     lvl = level_index
     platform_list.empty()
+    sprite_list.empty()
     for x in range(levels[lvl]['width']):
         for y in range(levels[lvl]['height']):
             if levels[lvl]['map_object'][x][y] == '#':
                 plats = pygame.sprite.Sprite()
                 plats = platform.Platform(sprite_lib['corner'])
                 platform_list.add(plats)
-
+                sprite_list.add(plats)
+    
+def level_changed(before, after):
+    old_lvl = before
+    new_lvl = after
+    if old_lvl == new_lvl:
+        return old_level, False
+    if old_lvl != new_lvl:
+        return new_lvl, True
 
 
 def game_cycle():
     Playing = True
-
+    lvl_tracker = lvl
+    migrate = False
+    plats_assemble(lvl)
+    mainmonkey = User(sprite_lib['horngirl'], levels[lvl]['xy_state'][0], levels[lvl]['xy_state'][1])
 
     # main loop ------------------------------------------------------------
     while Playing:
-        needredraw = False
+        # keep track of if level has changed
+        lvl_tracker, migrate = level_changed(lvl_tracker, lvl)
+        if migrate:
+            plats_assemble(lvl)
+            mainmonkey.walls = platform_list
+            sprite_list.add(mainmonkey)
+
+        
         # even handling loop -----------------------------------------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -55,24 +74,31 @@ def game_cycle():
                     pygame.quit()
                     Playing = False         # exit
                 if event.key == pygame.K_UP:
-                    direction = UP
+                    # direction = UP
+                    mainmonkey.accelerate(0, -pixspeed)
                 if event.key == pygame.K_DOWN:
-                    direction = DOWN
+                    # direction = DOWN
+                    mainmonkey.accelerate(0,  pixspeed)
                 if event.key == pygame.K_LEFT:
-                    direction = LEFT
+                    # direction = LEFT
+                    mainmonkey.accelerate(-pixspeed, 0)
                 if event.key == pygame.K_RIGHT:
-                    direction = RIGHT
+                    # direction = RIGHT
+                    mainmonkey.accelerate( pixspeed, 0)
                 if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
-                    direction = UPR
+                    # direction = UPR
+                    mainmonkey.accelerate(pixspeed, -pixspeed)
                 if event.key == pygame.K_UP and event.key == pygame.K_LEFT:
-                    direction = UPL
+                    # direction = UPL
+                    mainmonkey.accelerate(-pixspeed, -pixspeed)
                 if event.key == pygame.K_DOWN and event.key == pygame.K_RIGHT:
-                    direction = DOWNR
+                    # direction = DOWNR
+                    mainmonkey.accelerate(pixspeed, pixspeed)
                 if event.key == pygame.K_DOWN and event.key == pygame.K_LEFT:
-                    direction = DOWNL
+                    # direction = DOWNL
+                    mainmonkey.accelerate(-pixspeed, pixspeed)
         # work space ------------------------------------------------------
 
-        plats_assemble(levelnum)
         platform_list.draw(background)
         pygame.display.update()
         self.screen.blit(self.background, (0,0))

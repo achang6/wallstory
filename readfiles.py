@@ -67,7 +67,7 @@ def Readmapsfile(filename):
             level_object = {'width': max_width,
                     'height': len(map_object),
                     'map_object': map_object,
-                    'start_state': game_object}
+                    'xy_state': game_object}
             levels.append(level_object)
 
             # reset variables for next map

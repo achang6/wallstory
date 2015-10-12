@@ -25,3 +25,6 @@ UPR   = 'upright'
 UPL   = 'upleft'
 DOWNR = 'downright'
 DOWNL = 'downleft'
+
+# other
+pixspeed = 2

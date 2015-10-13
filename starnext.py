@@ -33,10 +33,10 @@ def plats_assemble(level_index):
     for x in range(levels[lvl]['width']):
         for y in range(levels[lvl]['height']):
             if levels[lvl]['map_object'][x][y] == '#':
-                x *= TILEW
-                y *= TILEH
+                plat_x = TILEW * x
+                plat_y = TILEF * y
                 plats = pygame.sprite.Sprite()
-                plats = platform.Platform((x,y), sprite_lib['corner'])
+                plats = platform.Platform((plat_x, plat_y), sprite_lib['corner'])
                 platform_list.add(plats)
                 sprite_list.add(plats)
     
@@ -63,9 +63,12 @@ def game_cycle():
         # keep track of if level has changed
         lvl_tracker, migrate = level_changed(lvl_tracker, lvl)
         if migrate:
-            plats_assemble(lvl)
             mainmonkey.walls = platform_list
             sprite_list.add(mainmonkey)
+            lvl_width = levels[lvl]['width']
+            lvl_height = levels[lvl]['height']
+            lvl_object = levels[lvl]['map_object']
+            plats_assemble(lvl)
 
         
         # event handling loop -----------------------------------------------

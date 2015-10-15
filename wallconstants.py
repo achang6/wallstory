@@ -1,6 +1,6 @@
 # constants
-WINW  = 1280     # window width
-WINH  = 720      # window height
+WINW  = 1000     # window width
+WINH  = 666     # window height
 FPS   = 30       # frames per second
 TILEW = 50
 TILEH = 85

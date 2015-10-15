@@ -63,7 +63,7 @@ def Readmapsfile(filename):
             assert x_start != None and y_start != None, 'Level %s in %s missing the start point "@" or "+"' % (level_num +1, filename)
             
             # create level object
-            game_object  = {'player': (x_start, y_start)}
+            game_object  = {'user': (x_start, y_start)}
             level_object = {'width': max_width,
                     'height': len(map_object[0]),
                     'map_object': map_object,

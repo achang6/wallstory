@@ -11,14 +11,14 @@ pygame.init()                                                           # initia
 pygame.display.set_caption('Wallstory 0')                               # set window caption
 screen = pygame.display.set_mode((WINW, WINH))                          # set window surface object
 background = pygame.Surface(screen.get_size()).convert()                # set background surface, convert for blitting
-background.fill(green)                                                  # OPTIONAL: color the background
-sprite_lib = readfiles.Readimagesfile('starnext_images.txt')     # set image dictionary
+background.fill(gray)                                                   # OPTIONAL: color the background
+spriteground = pygame.Surface(screen.get_size()).convert()              # set surface for sprites to blit onto screen after background
+sprite_lib = readfiles.Readimagesfile('starnext_images.txt')            # set image dictionary
 levels = readfiles.Readmapsfile('starPusherLevels.txt')                 # set levels array/dictionary
 clock = pygame.time.Clock()                                             # set pygame clock
 playtime = 0.0                                                          # OPTIONAL: container for time app active
 font = pygame.font.SysFont('mono', 12, bold = True)                     # set font
 lvl = 0                                                                 # track index of current level
-
 sprite_list     = pygame.sprite.Group()
 platform_list   = pygame.sprite.Group()
 
@@ -28,15 +28,22 @@ platform_list   = pygame.sprite.Group()
 
 def plats_assemble(level_index):
     lvl = level_index
+    lvl_width = levels[lvl]['width']
+    lvl_height = levels[lvl]['height']
+
     platform_list.empty()
     sprite_list.empty()
-    for x in range(levels[lvl]['width']):
-        for y in range(levels[lvl]['height']):
+    
+    for x in range(lvl_width):
+        for y in range(lvl_height):
             if levels[lvl]['map_object'][x][y] == '#':
                 plat_x = TILEW * x
                 plat_y = TILEF * y
-                plats = pygame.sprite.Sprite()
-                plats = platform.Platform((plat_x, plat_y), sprite_lib['corner'])
+                lvlw = TILEW * lvl_width
+                lvlh = TILEF * lvl_height
+
+                plats = platform.Platform((plat_x + WINW / 2 - lvlw / 2, plat_y + WINH / 2 - lvlh / 2), sprite_lib['corner'])
+                
                 platform_list.add(plats)
                 sprite_list.add(plats)
     
@@ -44,33 +51,31 @@ def level_changed(before, after):
     old_lvl = before
     new_lvl = after
     if old_lvl == new_lvl:
-        return old_level, False
+        return old_lvl, False
     if old_lvl != new_lvl:
         return new_lvl, True
 
 
 def game_cycle():
     Playing = True
-    lvl_tracker = lvl
-    migrate = False
-    plats_assemble(lvl)
-    mainmonkey = User(sprite_lib['horngirl'], levels[lvl]['xy_state'][0], levels[lvl]['xy_state'][1])
-    mainmonkey.walls = platform_list
-    sprite_list.add(mainmonkey)
+    lvl_tracker = 1
 
     # main loop ------------------------------------------------------------
     while Playing:
         # keep track of if level has changed
         lvl_tracker, migrate = level_changed(lvl_tracker, lvl)
         if migrate:
-            mainmonkey.walls = platform_list
-            sprite_list.add(mainmonkey)
             lvl_width = levels[lvl]['width']
             lvl_height = levels[lvl]['height']
             lvl_object = levels[lvl]['map_object']
             plats_assemble(lvl)
 
-        
+        monkey_x = levels[lvl]['xy_state']['user'][0] * TILEW + WINW / 2 #- lvl_width / 2
+        monkey_y = levels[lvl]['xy_state']['user'][1] * TILEF + WINH / 2 #- lvl_height / 2
+        mainmonkey = user.User(sprite_lib['horngirl'], monkey_x, monkey_y)
+        mainmonkey.walls = platform_list
+        sprite_list.add(mainmonkey)
+
         # event handling loop -----------------------------------------------
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -92,7 +97,7 @@ def game_cycle():
                 if event.key == pygame.K_RIGHT:
                     # direction = RIGHT
                     mainmonkey.accelerate( pixspeed, 0)
-                if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
+                '''if event.key == pygame.K_UP and event.key == pygame.K_RIGHT:
                     # direction = UPR
                     mainmonkey.accelerate(pixspeed, -pixspeed)
                 if event.key == pygame.K_UP and event.key == pygame.K_LEFT:
@@ -103,14 +108,14 @@ def game_cycle():
                     mainmonkey.accelerate(pixspeed, pixspeed)
                 if event.key == pygame.K_DOWN and event.key == pygame.K_LEFT:
                     # direction = DOWNL
-                    mainmonkey.accelerate(-pixspeed, pixspeed)
+                    mainmonkey.accelerate(-pixspeed, pixspeed)'''
         # work space ------------------------------------------------------
 
         sprite_list.update()
-        sprite_list.clear(background)
-        sprite_list.draw(background)
+        sprite_list.clear(screen, background)
+        sprite_list.draw(spriteground) 
+        screen.blit(spriteground, (0,0))
         pygame.display.update()
-        self.screen.blit(self.background, (0,0))
 
 
 if __name__ == '__main__':

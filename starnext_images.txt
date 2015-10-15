@@ -18,7 +18,7 @@
 #images/boy.png
 ;catgirl
 #images/catgirl.png
-;orngirl
+;horngirl
 #images/horngirl.png
 ;pinkgirl
 #images/pinkgirl.png

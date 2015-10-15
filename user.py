@@ -3,6 +3,7 @@ import os
 
 class User(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
+        super(User, self).__init__()
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -12,8 +13,8 @@ class User(pygame.sprite.Sprite):
         self.walls = None
     
     def accelerate(self, x, y):
-        self.x_shift += x
-        self.y_shift += y
+        self.x_shift = x
+        self.y_shift = y
     
     def update(self):
         # horzontal

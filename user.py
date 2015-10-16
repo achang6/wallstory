@@ -1,5 +1,6 @@
 import pygame
 import os
+import math
 
 class User(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
@@ -17,7 +18,17 @@ class User(pygame.sprite.Sprite):
         self.y_shift = y
     
     def update(self):
-        # horzontal
+        if self.x_shift < 0:
+            self.x_shift = math.ceil(self.x_shift * .99)
+        elif self.x_shift > 0:
+            self.x_shift = math.floor(self.x_shift * .99)
+        if self.y_shift < 0:
+            self.y_shift = math.ceil(self.y_shift * .99)
+        elif self.y_shift > 0:
+            self.y_shift = math.floor(self.y_shift * .99)
+
+
+        # horizontal
         self.rect.x += self.x_shift
         contact_walls = pygame.sprite.spritecollide(self, self.walls, False)
         for contact in contact_walls:

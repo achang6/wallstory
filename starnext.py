@@ -65,16 +65,16 @@ def game_cycle():
         # keep track of if level has changed
         lvl_tracker, migrate = level_changed(lvl_tracker, lvl)
         if migrate:
-            lvl_width = levels[lvl]['width']
-            lvl_height = levels[lvl]['height']
+            lvl_width = levels[lvl]['width'] * TILEW
+            lvl_height = levels[lvl]['height'] * TILEF
             lvl_object = levels[lvl]['map_object']
             plats_assemble(lvl)
 
-        monkey_x = levels[lvl]['xy_state']['user'][0] * TILEW + WINW / 2 #- lvl_width / 2
-        monkey_y = levels[lvl]['xy_state']['user'][1] * TILEF + WINH / 2 #- lvl_height / 2
-        mainmonkey = user.User(sprite_lib['horngirl'], monkey_x, monkey_y)
-        mainmonkey.walls = platform_list
-        sprite_list.add(mainmonkey)
+            monkey_x = levels[lvl]['xy_state']['user'][0] * TILEW + WINW / 2 - lvl_width / 2
+            monkey_y = levels[lvl]['xy_state']['user'][1] * TILEF + WINH / 2 - lvl_height / 2
+            mainmonkey = user.User(sprite_lib['horngirl'], monkey_x, monkey_y)
+            mainmonkey.walls = platform_list
+            sprite_list.add(mainmonkey)
 
         # event handling loop -----------------------------------------------
         for event in pygame.event.get():

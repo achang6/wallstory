@@ -27,4 +27,4 @@ DOWNR = 'downright'
 DOWNL = 'downleft'
 
 # other
-pixspeed = 2
+pixspeed = 7

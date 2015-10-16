@@ -121,9 +121,8 @@ def game_cycle():
         # work space ------------------------------------------------------
 
         sprite_list.update()
-        sprite_list.clear(screen, background)
-        sprite_list.draw(spriteground) 
-        screen.blit(spriteground, (0,0))
+        screen.fill(black)
+        sprite_list.draw(screen)
         pygame.display.update()
 
 

@@ -14,19 +14,10 @@ class User(pygame.sprite.Sprite):
         self.walls = None
     
     def accelerate(self, x, y):
-        self.x_shift = x
-        self.y_shift = y
+        self.x_shift += x
+        self.y_shift += y
     
     def update(self):
-        if self.x_shift < 0:
-            self.x_shift = math.ceil(self.x_shift * .99)
-        elif self.x_shift > 0:
-            self.x_shift = math.floor(self.x_shift * .99)
-        if self.y_shift < 0:
-            self.y_shift = math.ceil(self.y_shift * .99)
-        elif self.y_shift > 0:
-            self.y_shift = math.floor(self.y_shift * .99)
-
 
         # horizontal
         self.rect.x += self.x_shift

@@ -22,15 +22,15 @@
 ; so that loading new levels is easy. Just place the levels in a text file
 ; and name it "starPusherLevels.txt" (after renaming this file, of course).
 ; Starting demo level:
- ########
-##      #
-#   .   #
-#   $   #
-# .$@$. #
-####$   #
-   #.   #
-   #   ##
-   #####
+
+#########
+#       #
+#       #
+#   @   #
+#       #
+#       #
+#########
+
 ;
 ;
 ;

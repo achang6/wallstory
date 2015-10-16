@@ -81,6 +81,15 @@ def game_cycle():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 Playing = False             # exit
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP:
+                    mainmonkey.accelerate(0,  pixspeed)
+                if event.key == pygame.K_DOWN:
+                    mainmonkey.accelerate(0, -pixspeed)
+                if event.key == pygame.K_LEFT:
+                    mainmonkey.accelerate( pixspeed, 0)
+                if event.key == pygame.K_RIGHT:
+                    mainmonkey.accelerate(-pixspeed, 0)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()

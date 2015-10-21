@@ -7,55 +7,28 @@ import user
 import platform
 
 
-pygame.init()                                                           # initiate pygame
-pygame.display.set_caption('Wallstory 0')                               # set window caption
-screen = pygame.display.set_mode((WINW, WINH))                          # set window surface object
-background = pygame.Surface(screen.get_size()).convert()                # set background surface, convert for blitting
-background.fill(gray)                                                   # OPTIONAL: color the background
-spriteground = pygame.Surface(screen.get_size()).convert()              # set surface for sprites to blit onto screen after background
-sprite_lib = readfiles.Readimagesfile('starnext_images.txt')            # set image dictionary
-levels = readfiles.Readmapsfile('starPusherLevels.txt')                 # set levels array/dictionary
-clock = pygame.time.Clock()                                             # set pygame clock
-playtime = 0.0                                                          # OPTIONAL: container for time app active
-font = pygame.font.SysFont('mono', 12, bold = True)                     # set font
-lvl = 0                                                                 # track index of current level
+
+# Setup zone #######################################################
+# mandatory: set up pygame
+pygame.init()
+# set up screen
+pygame.display.set_caption('Wallstory 0')                              
+screen          = pygame.display.set_mode((WINW, WINH))                        
+background      = pygame.Surface(screen.get_size()).convert()             
+# set up clock
+clock           = pygame.time.Clock()                                          
+playtime        = 0.0
+# set up font
+font            = pygame.font.SysFont('mono', 12, bold = True)                
+# track current level
+current_level   = 0
+# initiate sprite groups
 sprite_list     = pygame.sprite.Group()
 platform_list   = pygame.sprite.Group()
 
 
 
-# Function zone ##################################################################################################
-
-def plats_assemble(level_index):
-    lvl = level_index
-    lvl_width = levels[lvl]['width']
-    lvl_height = levels[lvl]['height']
-
-    platform_list.empty()
-    sprite_list.empty()
-    
-    for x in range(lvl_width):
-        for y in range(lvl_height):
-            if levels[lvl]['map_object'][x][y] == '#':
-                plat_x = TILEW * x
-                plat_y = TILEF * y
-                lvlw = TILEW * lvl_width
-                lvlh = TILEF * lvl_height
-
-                plats = platform.Platform((plat_x + WINW / 2 - lvlw / 2, plat_y + WINH / 2 - lvlh / 2), sprite_lib['corner'])
-                
-                platform_list.add(plats)
-                sprite_list.add(plats)
-    
-def level_changed(before, after):
-    old_lvl = before
-    new_lvl = after
-    if old_lvl == new_lvl:
-        return old_lvl, False
-    if old_lvl != new_lvl:
-        return new_lvl, True
-
-
+# main function
 def game_cycle():
     Playing = True
     lvl_tracker = 1
@@ -70,7 +43,7 @@ def game_cycle():
             lvl_object = levels[lvl]['map_object']
             plats_assemble(lvl)
 
-            monkey_x = levels[lvl]['xy_state']['user'][0] * TILEW + WINW / 2 - lvl_width / 2
+            monkey_x = levels[lvl]['xy_state']['user'][0] * TILEW + WINW / 2 - lvl_width / 2 
             monkey_y = levels[lvl]['xy_state']['user'][1] * TILEF + WINH / 2 - lvl_height / 2
             mainmonkey = user.User(sprite_lib['horngirl'], monkey_x, monkey_y)
             mainmonkey.walls = platform_list

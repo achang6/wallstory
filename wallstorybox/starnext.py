@@ -46,6 +46,11 @@ def game_cycle():
             platform_list.empty()
             sprite_list.empty()
             # change platforms
+
+
+
+
+
             plat_xy = plats_assemble(current_lvl)
             plat = platform.Platform(plat_xy, sprite_lib['corner'])
             platform_list.add(plat) 

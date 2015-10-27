@@ -39,8 +39,8 @@ def activate_monkey(lvl = 0):
     hlvlh = levels[lvl]['height'] / 2
     
     monkey_x = levels[lvl]['xy_state']['user'][0]
-    monkey_x = monkey_x * TILEW + HWINW - hlvlw
+    monkey_x = monkey_x * TILEW
     monkey_y = levels[lvl]['xy_state']['user'][1]
-    monkey_y = monkey_y * TILEH + HWINH - hlvlh
+    monkey_y = monkey_y * TILEH
 
     return monkey_x, monkey_y

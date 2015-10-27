@@ -4,6 +4,7 @@ from wallconstants import *
 import platform
 import readfiles
 import user
+from starnext import *
 
 
 # create levels object
@@ -19,10 +20,12 @@ def plats_assemble(lvl = 0):
     for x in range(lvl_width):
         for y in range(lvl_height):
             if levels[lvl]['map_object'][x][y] == '#':
-                plat_x = x * TILEW + HWINW - h_width  # + HTILEW
-                plat_y = y * TILEF + HWINH - h_height # + HTILEF
+                plat_x = x * TILEW + HWINW - h_width
+                plat_y = y * TILEH + HWINH - h_height
 
-                plats = platform.Platform((plat_x, plat_y), sprite_lib['corner'])
+                # plats = platform.Platform((plat_x, plat_y), sprite_lib['corner'])
+
+    return (plat_x, plat_y)
 
 
 def lvl_changed(old_lvl, new_lvl):

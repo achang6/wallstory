@@ -24,7 +24,7 @@ instruction_page = 1
 
 while not done and display_instructions:
 
-    for even in pygame.event.get():
+    for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
         if event.type == pygame.KEYDOWN:
@@ -45,5 +45,39 @@ while not done and display_instructions:
         screen.blit(text, [10,40])
 
     if instruction_page == 2:
-        text = font.render['This program bounces a triangle', True, WHITE)
-        screen.blit
+        text = font.render('This program bounces a rectangle', True, WHITE)
+        screen.blit(text, [10,10])
+
+        text = font.render('Page 2', True, WHITE)
+        screen.blit(text, [10,40])
+
+    clock.tick(FPS)
+
+    pygame.display.update()
+
+
+while not done:
+    
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+        if event.type == pygame.KEYDOWN:
+            if event.key == K_ESCAPE:
+                done = True
+
+    screen.fill(BLACK)
+
+    pygame.draw.rect(screen, WHITE, [rect_x, rect_y, 50, 50])
+
+    rect_x += rect_dx
+    rect_y += rect_dy
+    if rect_y > WINH or rect_y < 0:
+        rect_dy *= -1
+    if rect_x > WINW or rect_x < 0:
+        rect_dx *= -1
+
+    clock.tick(FPS)
+
+    pygame.display.update()
+
+pygame.quit()

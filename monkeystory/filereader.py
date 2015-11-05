@@ -3,7 +3,7 @@ import pygame
 
 
 def readmapsfile(filename):
-    assert os.path.exists(filename), 'Cannot find the levels file: %s' % filename)
+    assert os.path.exists(filename), 'Cannot find the levels file: %s' % (filename)
 
     # parse text file
     levelsfile = open(filename, 'r')
@@ -12,9 +12,8 @@ def readmapsfile(filename):
 
     # initiate containers
     levels = []         # list of levels
-    levelnum = 0        # level index
     plats = []          # list of platforms'  data for a level
-    platform = []       # a platform's 4 specs xywh
+    platform = []       # a platform's 5 specs xywhc
     platspec = 0        # plat spec index
     strval = ''         # temporary string container
     
@@ -34,25 +33,26 @@ def readmapsfile(filename):
         elif line == '' and len(plats) > 0:    
             # process each level: l:line, c:character
             for l in range(len(plats)):
-                for c in len(plats[l]):
+                for c in range(len(plats[l])):
                     # parse
                     if plats[l][c] != ' ':
                         strval += plats[l][c]
                     elif plats[l][c] == ' ' and platspec != 4:
-                        platform[platspec] = int(strval)
+                        platform.append(int(strval))
                         # reset and step
                         strval = ''
                         platspec += 1
                     # quick fix for parameter 5
                     elif plats[l][c] == ' ' and platspec == 4:
+                        platform.append(strval)
                         strval = ''
                         platspec = 0
                 # reset for next line
                 platspec = 0
             # store level, reset platform, step
-            levels[levelnum] = platform
+            levels.append(platform)
             platform = []       
-            levelnum += 1
+            plats = []
             
     # each levels index is a list of platforms
     # 'platform' holds all the platforms of a level
@@ -90,7 +90,7 @@ def readimagesfile(filename):
 
     # load images
     for i in range(len(imonkey[0])):
-        imagecat[imonkey[0][i]] = pygame.image.load(imonkey[1][i]])
+        imagecat[imonkey[0][i]] = pygame.image.load(imonkey[1][i])
     
     # results in keys for image dictionary
     return imagecat

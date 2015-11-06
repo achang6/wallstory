@@ -2,10 +2,10 @@
 
 # Level 1 
 
-0 600 800 50 BLACK
-0 0 50 550 BLUE
-550 0 50 550 RED
-50 0 500 50 GREEN
+0 550 800 50 Bottom
+0 0 50 550 Left
+750 0 50 550 Right
+50 0 700 50 top
 
 # Level 2
 

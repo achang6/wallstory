@@ -33,11 +33,11 @@ wall_list = pygame.sprite.Group()
 
 #### function zone ############################################
 def spritesassemble(clevel):
-    for p in clevel:
-        print(clevel[p])
-        #platform = Platform(clevel[p])
-        #wall_list.add(platform)
-        #sprite_list.add(platform)
+    for p in range(len(clevel)):
+        platform = Platform(clevel[p])
+        wall_list.add(platform)
+        sprite_list.add(platform)
+        print(str(clevel[p]))
 
 
 
@@ -46,9 +46,8 @@ while not done:
     
     # main loop set up #
     if loading:
-        #spritesassemble(levels[levelindex])
-        print(levels)
-        loadint = False
+        spritesassemble(levels[levelindex])
+        loading = False
 
     #### event handling loop ##################################
     for event in pygame.event.get():
@@ -61,7 +60,7 @@ while not done:
     # last words #
     sprite_list.update()
 
-    screen.fill(WHITE)
+    screen.fill(BGC)
 
     sprite_list.draw(screen)
 

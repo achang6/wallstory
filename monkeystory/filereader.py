@@ -14,6 +14,7 @@ def readmapsfile(filename):
     levels = []         # list of levels
     plats = []          # list of platforms'  data for a level
     platform = []       # a platform's 5 specs xywhc
+    loading = []        # prepares xywhc to store in platform
     platspec = 0        # plat spec index
     strval = ''         # temporary string container
     
@@ -38,20 +39,21 @@ def readmapsfile(filename):
                     if plats[l][c] != ' ':
                         strval += plats[l][c]
                     elif plats[l][c] == ' ' and platspec != 4:
-                        platform.append(int(strval))
+                        loading.append(int(strval))
                         # reset and step
                         strval = ''
                         platspec += 1
                     # quick fix for parameter 5
                     elif plats[l][c] == ' ' and platspec == 4:
-                        platform.append(strval)
+                        loading.append(strval)
                         strval = ''
                         platspec = 0
-                # reset for next line
-                platspec = 0
+                        platform.append(loading)
+                        loading = []
             # store level, reset platform, step
             levels.append(platform)
             platform = []       
+            loading = []
             plats = []
             
     # each levels index is a list of platforms

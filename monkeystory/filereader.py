@@ -2,6 +2,7 @@ import os
 import pygame
 
 
+
 def readmapsfile(filename):
     assert os.path.exists(filename), 'Cannot find the levels file: %s' % (filename)
 
@@ -61,6 +62,68 @@ def readmapsfile(filename):
     # each platform index has a platform's data
     # index 01234 is xywhc data respectively
     return levels
+
+
+
+def readplayerfile(filename):
+    assert os.path.exists(filename), 'Cannot find the levels file: %s' % (filename)
+
+    # parse text file
+    levelsfile = open(filename, 'r')
+    content = levelsfile.readlines() + ['\r\n']
+    levelsfile.close()
+
+    # initiate containers
+    clevel = []         # temp container of line in text
+    # levels = []         # levels list
+    player = []         # item of levels list
+    loading = []        # prepares xy to store in clevel
+    playerspec = 0        # plat spec index
+    strval = ''         # temporary string container
+    
+    # processing levels file
+    for i in range(len(content)):
+        line = content[i].rstrip('\r\n')
+
+        # comment, turn line into blank if so
+        if '#' in line: 
+            line = line[:line.find('#')]
+
+        # content, record
+        if line != '':
+            clevel.append(line + ' ')
+
+        # stop between levels
+        elif line == '' and len(clevel) > 0:
+            print(clevel)
+            # process each line c:character
+            for c in range(len(clevel[0])):
+                # parse
+                if clevel[0][c] != ' ':
+                    strval += clevel[0][c]
+                elif clevel[0][c] == ' ' and playerspec != 1:
+                    loading.append(int(strval))
+                    # reset and step
+                    strval = ''
+                    playerspec += 1
+                # quick fix for parameter 2
+                elif clevel[0][c] == ' ' and playerspec == 1:
+                    loading.append(int(strval))
+                    strval = ''
+                    playerspec = 0
+                    player.append(loading)
+                    loading = []
+            # store level, reset platform, step
+            # levels.append(player)
+            # player = []       
+            loading = []
+            clevel = []
+            
+    # each levels index is a list of platforms
+    # 'platform' holds all the platforms of a level
+    # each platform index has a platform's data
+    # index 01234 is xywhc data respectively
+    return player
 
 
 

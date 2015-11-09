@@ -1,0 +1,13 @@
+# starting x,y coordinates for player sprite
+# each level must have a blank line
+# before and after the tuple set
+
+# level 1
+
+400 300
+
+# level 2
+
+640 360
+
+#

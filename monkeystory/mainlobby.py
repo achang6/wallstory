@@ -1,5 +1,7 @@
 import pygame
+from player import User
 from filereader import readmapsfile
+from filereader import readplayerfile
 from pygame.sprite import spritecollide
 from pygame.locals import *
 from wallcon import * 
@@ -20,6 +22,8 @@ clock = pygame.time.Clock()
 
 # read levels data from text
 levels = readmapsfile('wallspec.txt')
+playpos = readplayerfile('startpos.txt')
+print(playpos)
 
 # Loop variables:
 loading = True          # for function that loads level 
@@ -32,12 +36,21 @@ wall_list = pygame.sprite.Group()
 
 
 #### function zone ############################################
-def spritesassemble(clevel):
-    for p in range(len(clevel)):
-        platform = Platform(clevel[p])
+def spritesassemble(levelnow):
+    for p in range(len(levelnow)):
+        platform = Platform(levelnow[p])
         wall_list.add(platform)
         sprite_list.add(platform)
-        print(str(clevel[p]))
+        print(str(levelnow[p]))
+
+def playeradvance(levelnow):
+    ball = pygame.image.load('wimages/ball.png')
+    print(levelnow)
+    player_x = levelnow[0]
+    player_y = levelnow[1]
+    player = User(ball, player_x, player_y)
+    player.walls = wall_list
+    sprite_list.add(player)
 
 
 
@@ -46,7 +59,8 @@ while not done:
     
     # main loop set up #
     if loading:
-        spritesassemble(levels[levelindex])
+        spritesassemble(levels[levelindex])     
+        playeradvance(playpos[levelindex])
         loading = False
 
     #### event handling loop ##################################

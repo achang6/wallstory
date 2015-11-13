@@ -96,7 +96,8 @@ while not done:
     # move the world
     for wall in wall_list:
         wall.worldrevolution(dx,dy)
-
+    player.accelerate(dx,dy)
+    
     #### last words ##############################################
     sprite_list.update()
 

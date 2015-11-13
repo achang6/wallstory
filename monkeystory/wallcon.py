@@ -25,7 +25,7 @@ moving = False
 airborne = False
 
 # other
-xmovespeed = 15
+xmovespeed = 10
 ymovespeed = int(xmovespeed*0.8)
 dx = 0
 dy = 0

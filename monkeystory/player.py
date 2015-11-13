@@ -11,6 +11,8 @@ class User(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.rect.w = self.image.get_width()
+        self.rect.h = self.image.get_height()
         self.dx = 0
         self.dy = 0
         self.walls = None
@@ -20,7 +22,7 @@ class User(pygame.sprite.Sprite):
         self.dy = y
 
     def update(self):
-        # horizontal
+        # horizontal collisions
         self.rect.x += self.dx
         contact_walls = spritecollide(self, self.walls, False)
         for contact in contact_walls:
@@ -29,7 +31,7 @@ class User(pygame.sprite.Sprite):
             elif self.dx < 0: 
                 self.rect.left = contact.rect.right
 
-        # vertical
+        # vertical collisions
         self.rect.y += self.dy
         contact_walls = spritecollide(self, self.walls, False)
         for contact in contact_walls:
@@ -38,4 +40,16 @@ class User(pygame.sprite.Sprite):
             if self.dy < 0: 
                 self.rect.top = contact.rect.bottom
         
+        # horizontal limits
+        if self.rect.x > WINW - 64 - self.rect.w:
+            self.rect.x = WINW - 64 - self.rect.w
+        if self.rect.x < 64:
+            self.rect.x = 64
+        
+        # vertical limits
+        if self.rect.y > WINH - 64 - self.rect.h:
+            self.rect.y = WINH - 64 - self.rect.h
+        if self.rect.y < 64:
+            self.rect.y = 64
+
 

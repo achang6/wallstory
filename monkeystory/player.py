@@ -1,8 +1,8 @@
 import pygame
 import os
 import math
+from wallcon import *
 from pygame.sprite import spritecollide
-
 
 class User(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
@@ -14,10 +14,10 @@ class User(pygame.sprite.Sprite):
         self.dx = 0
         self.dy = 0
         self.walls = None
-
+   
     def accelerate(self,x,y):
-        self.dx += x
-        self.dy += y
+        self.dx = x
+        self.dy = y
 
     def update(self):
         # horizontal
@@ -37,4 +37,5 @@ class User(pygame.sprite.Sprite):
                 self.rect.bottom = contact.rect.top
             if self.dy < 0: 
                 self.rect.top = contact.rect.bottom
+        
 

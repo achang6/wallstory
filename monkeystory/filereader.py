@@ -76,9 +76,9 @@ def readplayerfile(filename):
     # initiate containers
     clevel = []         # temp container of line in text
     # levels = []         # levels list
-    player = []         # item of levels list
-    loading = []        # prepares xy to store in clevel
-    playerspec = 0        # plat spec index
+    player = []         # list of player start positions each level
+    loading = []        # prepares xy to store in player
+    playerspec = 0      # player spec index (x,y)
     strval = ''         # temporary string container
     
     # processing levels file
@@ -124,6 +124,57 @@ def readplayerfile(filename):
     # each platform index has a platform's data
     # index 01234 is xywhc data respectively
     return player
+
+
+
+def readmapsize(filename):
+    assert os.path.exists(filename), 'Cannot find the map size file: %s' % (filename)
+
+    # parse text file
+    levelsfile = open(filename, 'r')
+    content = levelsfile.readlines() + ['\r\n']
+    levelsfile.close()
+
+    # initiate containers
+    currentlevel = []           # holds line of text of level
+    mapsize = []                # list of true map size
+    loading = []                # prepares data to store 
+    mapspec = 0              # map size spec index
+    strval = ''                 # temporary string container
+
+    # process map size file
+    for i in range(len(content)):
+        line = content[i].rstrip('\r\n')
+
+        # comment, turn line into blank
+        if '#' in line:
+            line = line[:line.find('#')]
+
+        # content, record
+        if line != '':
+            currentlevel.append(line + ' ')
+            
+        # stop between levels
+        elif line == '' and len(currentlevel) > 0:
+            # process each line character
+            for c in range(len(currentlevel[0])):
+                #parse
+                if currentlevel[0][c] != ' ':
+                    strval += currentlevel[0][c]
+                elif currentlevel[0][c] == ' ' and mapspec != 1:
+                    loading.append(int(strval))
+                    strval = ''
+                    mapspec += 1
+                elif currentlevel[0][c] == ' ' and mapspec == 1:
+                    loading.append(int(strval))
+                    strval = ''
+                    mapspec = 0
+                    mapsize.append(loading)
+                    loading = []
+            loading = []
+            currentlevel = []
+    return mapsize
+
 
 
 

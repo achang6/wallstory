@@ -2,6 +2,7 @@ import pygame
 from player import User
 from filereader import readmapsfile
 from filereader import readplayerfile
+from filereader import readmapsize
 from pygame.sprite import spritecollide
 from pygame.locals import *
 from wallcon import * 
@@ -23,7 +24,9 @@ clock = pygame.time.Clock()
 # read levels data from text
 levels = readmapsfile('wallspec.txt')
 playpos = readplayerfile('startpos.txt')
-print(playpos)
+mapsizes = readmapsize('wallsizes.txt')
+print(mapsizes[0][0])
+print(mapsizes[0][1])
 
 # Loop variables:
 loading = True          # for function that loads level 
@@ -36,31 +39,32 @@ wall_list = pygame.sprite.Group()
 
 
 #### function zone ############################################
-def spritesassemble(levelnow):
+def platsassemble(levelnow,levelindex):
     for p in range(len(levelnow)):
         platform = Platform(levelnow[p])
+        platform.harvesthour(mapsizes[levelindex][0],mapsizes[levelindex][1])
         wall_list.add(platform)
         sprite_list.add(platform)
         print(str(levelnow[p]))
 
 def playeradvance(levelnow):
     ball = pygame.image.load('wimages/ball.png')
-    print(levelnow)
-    player_x = levelnow[0]
-    player_y = levelnow[1]
+    player_x = 640 # levelnow[0]
+    player_y = 360 # levelnow[1]
     player = User(ball, player_x, player_y)
     player.walls = wall_list
     sprite_list.add(player)
+    return player
 
-
+    
 
 #### main-loop zone ############################################
 while not done:
     
     # main loop set up #
     if loading:
-        spritesassemble(levels[levelindex])     
-        playeradvance(playpos[levelindex])
+        platsassemble(levels[levelindex],levelindex)     
+        player = playeradvance(playpos[levelindex])
         loading = False
 
     #### event handling loop ##################################
@@ -70,8 +74,30 @@ while not done:
         if event.type == pygame.KEYDOWN:
             if event.key == K_ESCAPE:
                 done = True
-    
-    # last words #
+            if event.key == K_LEFT:
+                dx -= xmovespeed
+            if event.key == K_RIGHT:
+                dx += xmovespeed
+            if event.key == K_UP:
+                dy -= ymovespeed
+            if event.key == K_DOWN:
+                dy += ymovespeed
+        elif event.type == pygame.KEYUP:
+            if event.key == K_LEFT:
+                dx = 0
+            if event.key == K_RIGHT:
+                dx = 0
+            if event.key == K_UP:
+                dy = 0
+            if event.key == K_DOWN:
+                dy = 0
+
+    #### processing ##############################################
+    # move the world
+    for wall in wall_list:
+        wall.worldrevolution(dx,dy)
+
+    #### last words ##############################################
     sprite_list.update()
 
     screen.fill(BGC)
@@ -82,4 +108,5 @@ while not done:
 
     clock.tick(FPS)
 
+#### Exit ######################################################
 pygame.quit()

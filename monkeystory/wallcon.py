@@ -21,3 +21,12 @@ FPS = 30
 
 # main loop variable
 done = False
+moving = False
+airborne = False
+
+# other
+xmovespeed = 15
+ymovespeed = int(xmovespeed*0.8)
+dx = 0
+dy = 0
+speedcap = 15

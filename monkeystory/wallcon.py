@@ -23,6 +23,8 @@ FPS = 30
 done = False
 moving = False
 airborne = False
+loading = True
+levelindex = 0
 
 # other
 xmovespeed = 10

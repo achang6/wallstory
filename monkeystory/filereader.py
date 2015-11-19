@@ -75,7 +75,6 @@ def readplayerfile(filename):
 
     # initiate containers
     clevel = []         # temp container of line in text
-    # levels = []         # levels list
     player = []         # list of player start positions each level
     loading = []        # prepares xy to store in player
     playerspec = 0      # player spec index (x,y)
@@ -112,17 +111,10 @@ def readplayerfile(filename):
                     strval = ''
                     playerspec = 0
                     player.append(loading)
-                    loading = []
-            # store level, reset platform, step
-            # levels.append(player)
-            # player = []       
+                    loading = []       
             loading = []
             clevel = []
-            
-    # each levels index is a list of platforms
-    # 'platform' holds all the platforms of a level
-    # each platform index has a platform's data
-    # index 01234 is xywhc data respectively
+    # list of player xy tuples
     return player
 
 
@@ -208,5 +200,5 @@ def readimagesfile(filename):
     for i in range(len(imonkey[0])):
         imagecat[imonkey[0][i]] = pygame.image.load(imonkey[1][i])
     
-    # results in keys for image dictionary
+    # results in image dictionary
     return imagecat

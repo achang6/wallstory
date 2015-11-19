@@ -25,12 +25,6 @@ clock = pygame.time.Clock()
 levels = readmapsfile('wallspec.txt')
 playpos = readplayerfile('startpos.txt')
 mapsizes = readmapsize('wallsizes.txt')
-print(mapsizes[0][0])
-print(mapsizes[0][1])
-
-# Loop variables:
-loading = True          # for function that loads level 
-levelindex = 0          # index to track current level
 
 # sprite groups
 sprite_list = pygame.sprite.Group()

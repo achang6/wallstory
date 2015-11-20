@@ -1,13 +1,28 @@
 import pygame
-import os
-import math
 from wallcon import *
 from pygame.sprite import spritecollide
 
-class User(pygame.sprite.Sprite):
+class Player(pygame.sprite.Sprite):
+    #### basic attribute declarations ####
+    # track what direction player is facing
+    direction = 'r'
+    rightface = []
+    leftface = []
+    # track player velocities
+    dx = 0
+    dy = 0
+    # track solid objects
+    obstructions = None
+    
+    # class functions
     def __init__(self, image, x, y):
-        super(User, self).__init__()
-        self.image = image
+        super(Player, self).__init__()
+        # set up image
+        self.rightface.append(image)
+        image = pygame.transform.flip(image,True,False)
+        self.leftface.append(image)
+        self.image = self.rightface[0]
+        # set up rect obj and attributes
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -15,8 +30,23 @@ class User(pygame.sprite.Sprite):
         self.rect.h = self.image.get_height()
         self.dx = 0
         self.dy = 0
-        self.walls = None
-   
+
+    def gravity(self):
+        # define gravity O.O
+        if self.dy == 0:
+            self.dy = 1
+        else:
+            self.dy += 0.35
+        # As Atlas carries the Earth, so does the Earth carry you
+        if self.rect.y >= (WINH - self.rect.h) and self.dy >= 0:
+            self.dy = 0
+            self.rect.y = WINH - self.rect.h
+
+    def jump(self):
+        #### classic action ####
+        # call when 'jump' key pressed
+        self.rect.y += 2
+        contactharvest = spritecollide(self,self.level.platform_list,False)
     def accelerate(self,x,y):
         self.dx = x
         self.dy = y

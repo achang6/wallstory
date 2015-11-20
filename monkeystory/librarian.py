@@ -1,5 +1,5 @@
 import pygame
-from player import User                 
+from player import User                
 from filereader import readimagesfile   # returns a dictionary
 from pygame.sprite import spritecollide
 from wallcon import *

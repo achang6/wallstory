@@ -27,8 +27,5 @@ loading = True
 levelindex = 0
 
 # other
-xmovespeed = 10
-ymovespeed = int(xmovespeed*0.8)
-dx = 0
-dy = 0
-speedcap = 15
+xmovespeed = 5
+ymovespeed = 2 * xmovespeed

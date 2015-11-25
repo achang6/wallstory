@@ -39,8 +39,8 @@ class Level():
         screen.fill(BLACK)
         screen.blit(self.background, (self.worldxshift // 3, 0))
         # pygame.sprite.Group() draw function
-        self.platform_list.draw(screen)
-        self.enemy_list.draw(screen)
+        #self.platform_list.draw(screen)
+        #self.enemy_list.draw(screen)
 
     def worldrevolution(self, xshift, yshift):
         # track overall movement of world

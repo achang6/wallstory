@@ -1,0 +1,19 @@
+# comments
+# xywh
+# bottom, left, right, top
+
+# Level 1 
+
+0 1390 2560 50 Bottom
+0 0 50 1390 Left
+2510 0 50 1390 Right
+50 0 2460 50 Top
+
+# Level 2
+
+0 1390 2560 50 Bottom
+0 0 50 1390 Left
+2510 0 50 1390 Right
+50 0 2460 50 Top
+
+#

@@ -1,8 +1,8 @@
 import pygame
-from player import User
+import platform
+from player import Player
 from filereader import readimagesfile
 from wallcon import *
-from platform import Platform
 
 class Level():
     #### declaration zone ######################################
@@ -30,12 +30,13 @@ class Level():
         self.player = player
 
     def update(self):
+        # update properties of all sprites
         self.platform_list.update()
         self.enemy_list.update()
         
     def draw(self, screen):
-        # refresh
-        screen.fill(WHITE)
+        # refresh first
+        screen.fill(BLACK)
         screen.blit(self.background, (self.worldxshift // 3, 0))
         # pygame.sprite.Group() draw function
         self.platform_list.draw(screen)
@@ -45,8 +46,8 @@ class Level():
         # track overall movement of world
         self.worldxshift += xshift
         # move everything else
-        for platform in self.platform_list:
-            platform.rect.x += xshift
+        for ledge in self.platform_list:
+            ledge.rect.x += xshift
         for enemy in self.enemy_list:
             enemy.rect.x += xshift
 
@@ -62,15 +63,17 @@ class Level01(Level):
 
         # platform creation array
         level = (
-                plat1 = platform(1400,1280,200,10),
-                plat2 = platform(1600,1180,200,10),
-                plat3 = platform(1800,1080,200,10),
-                plat4 = platform(2000, 980,200,10)
+                platform.REDGRASS,
+                platform.BLUEGRASS,
+                platform.GREENGRASS,
+                platform.BLACKGRASS
                 )
 
         # plug level into platform_list
-        for platform in level:
-            self.platform_list.add(platform)
+        for ledge in level:
+            plat = platform.Platform(ledge)
+            plat.player = self.player
+            self.platform_list.add(plat)
 
 class Level02(Level):
     def __init__(self,player):
@@ -84,14 +87,16 @@ class Level02(Level):
 
         # platform creation array
         level = (
-                plat1 = platform(1400,1280,100,50),
-                plat2 = platform(1200,1180,100,50),
-                plat3 = platform(1000,1080,100,50),
-                plat4 = platform(800 , 980,100,50),
+                platform.REDGRASS,
+                platform.BLUEGRASS,
+                platform.GREENGRASS,
+                platform.BLACKGRASS
                 )
 
         # plug level into platform_list
-        for platform in level:
-            self.platform_list.add(platform)
+        for ledge in level:
+            plat = platform.Platform(ledge)
+            plat.player = self.player
+            self.platform_list.add(plat)
 
 

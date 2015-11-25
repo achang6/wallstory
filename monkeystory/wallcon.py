@@ -19,13 +19,9 @@ HWINW = WINW / 2
 HWINH = WINH / 2
 FPS = 30
 
-# main loop variable
-done = False
-moving = False
-airborne = False
-loading = True
-levelindex = 0
-
-# other
+# game variables
 xmovespeed = 5
 ymovespeed = 2 * xmovespeed
+gap = 200
+rgap = WINW - gap
+lgap = gap

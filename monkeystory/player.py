@@ -12,10 +12,10 @@ class Player(pygame.sprite.Sprite):
     dx = 0
     dy = 0
     # track solid objects
-    obstructions = None
+    level = None
     
     # class functions
-    def __init__(self, image, x, y):
+    def __init__(self, image):
         super(Player, self).__init__()
         # set up image
         self.rightface.append(image)
@@ -24,8 +24,8 @@ class Player(pygame.sprite.Sprite):
         self.image = self.rightface[0]
         # set up rect obj and attributes
         self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        # self.rect.x = x
+        # self.rect.y = y
         self.rect.w = self.image.get_width()
         self.rect.h = self.image.get_height()
         self.dx = 0

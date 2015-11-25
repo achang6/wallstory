@@ -1,5 +1,19 @@
 import pygame
 from wallcon import *
+from filereader import readimagesfile
+
+# define generic platform constants
+REDGRASS   = (1000,1280,200,10)
+BLUEGRASS  = (1200,1180,300,10)
+GREENGRASS = (1500,1080,400,10)
+BLACKGRASS = (1900,980,500,10)
+
+# load image dictionary
+# igallery = readimagesfile('imagekeys.txt')
+
+
+
+#### platform classes #############################################
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self, specs = []):
@@ -12,14 +26,11 @@ class Platform(pygame.sprite.Sprite):
         self.rect.y = specs[1]
         self.dx = 0
         self.dy = 0
-        self.image.fill(BLACK) 
-        self.truewidth = 0
-        self.trueheight = 0
-        self.truexpos = 0
-        self.trueypos = 0
-        self.xoriginal = self.rect.x
-        self.yoriginal = self.rect.y
+        self.image.fill(BLACK)
+
+
     
+    '''
     def worldrevolution(self, dx, dy):
         self.dx = -dx
         self.dy = -dy 
@@ -51,3 +62,4 @@ class Platform(pygame.sprite.Sprite):
 
         # position platforms accordingly
         self.rect.topleft = (self.rect.x,self.rect.y)
+        '''

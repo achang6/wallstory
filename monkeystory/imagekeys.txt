@@ -1,4 +1,4 @@
-;ball 
+;ball
 #wimages/ball.png
 ;foggyforest
-#wimages/Foggy_Forest_by_Jake_Stewart.jpg 
+#wimages/Foggy_Forest_by_Jake_Stewart.png

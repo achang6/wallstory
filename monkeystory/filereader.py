@@ -175,7 +175,7 @@ def readimagesfile(filename):
     
     # parse text file
     imagelist = open(filename, 'r')
-    guts = imagefile.readlines() + ['\r\n']
+    guts = imagelist.readlines() + ['\r\n']
     imagelist.close()
 
     # lists for processing
@@ -193,12 +193,9 @@ def readimagesfile(filename):
             # line is directory, remove # and store
             imagepath.append(line[1:])
     
-    # QOL variable
-    imonkey = [imagekey, imagepath]
-
     # load images
-    for i in range(len(imonkey[0])):
-        imagecat[imonkey[0][i]] = pygame.image.load(imonkey[1][i])
+    for i in range(len(imagekey)):
+        imagecat[imagekey[i]] = pygame.image.load(imagepath[i])
     
     # results in image dictionary
     return imagecat

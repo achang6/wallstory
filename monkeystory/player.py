@@ -30,6 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.h = self.image.get_height()
         self.dx = 0
         self.dy = 0
+        # jump law
 
     def gravity(self):
         # define gravity O.O
@@ -49,7 +50,7 @@ class Player(pygame.sprite.Sprite):
         harvest = spritecollide(self,self.level.platform_list,False)
         self.rect.y -= 2  
         # then 'jump' if not airborne
-        if len(harvest) > 0 or self.rect.bottom >= WINH:
+        if len(harvest) > 0 or self.rect.bottom >= WINH-self.rect.h:
             # jump
             self.dy = -10
 

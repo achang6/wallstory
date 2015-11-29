@@ -20,7 +20,7 @@ HWINH = WINH / 2
 FPS = 30
 
 # game variables
-xmovespeed = 5
+xmovespeed = 10
 ymovespeed = 2 * xmovespeed
 gap = 200
 rgap = WINW - gap

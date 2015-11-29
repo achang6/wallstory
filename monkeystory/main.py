@@ -92,15 +92,15 @@ def main():
         
         # move background left when player approaches right edge
         if player.rect.right >= rgap:
-            diff = player.rect.right - rgap
+            # diff = player.rect.right - rgap
             player.rect.right = rgap
-            lvlnow.worldrevolution(-diff,0)
+            lvlnow.worldrevolution(-xmovespeed,0)
 
         # move background right when player approaches left edge
         if player.rect.left <= lgap:
-            diff = lgap - player.rect.left
+            # diff = lgap - player.rect.left
             player.rect.left = lgap
-            lvlnow.worldrevolution(diff,0)
+            lvlnow.worldrevolution(xmovespeed,0)
 
         #### moving between levels ################################
         

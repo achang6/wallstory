@@ -19,8 +19,8 @@ class Level():
 
     # world limits
     worldxshift = 0
-    xshiftmax = WINW - truewidth
-    
+    xshiftmax = WINW - truewidth 
+
     # load image dictionary
     ilibrarian = readimagesfile('imagekeys.txt')
 
@@ -30,17 +30,19 @@ class Level():
         self.player = player
 
     def update(self):
+        # horizontal boundaries
+
         # update properties of all sprites
         self.platform_list.update()
         self.enemy_list.update()
-        
+
     def draw(self, screen):
         # refresh first
         screen.fill(BLACK)
-        screen.blit(self.background, (self.worldxshift // 3, 0))
+        screen.blit(self.background, (self.worldxshift // 2, -1000))
         # pygame.sprite.Group() draw function
-        #self.platform_list.draw(screen)
-        #self.enemy_list.draw(screen)
+        self.platform_list.draw(screen)
+        self.enemy_list.draw(screen)
 
     def worldrevolution(self, xshift, yshift):
         # track overall movement of world

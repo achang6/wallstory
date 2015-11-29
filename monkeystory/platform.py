@@ -3,10 +3,10 @@ from wallcon import *
 from filereader import readimagesfile
 
 # define generic platform constants
-REDGRASS   = (1000,1280,200,10)
-BLUEGRASS  = (1200,1180,300,10)
-GREENGRASS = (1500,1080,400,10)
-BLACKGRASS = (1900,980,500,10)
+REDGRASS   = (1000,680,200,10)
+BLUEGRASS  = (1200,580,300,10)
+GREENGRASS = (1500,480,400,10)
+BLACKGRASS = (1900,380,500,10)
 
 # load image dictionary
 # igallery = readimagesfile('imagekeys.txt')

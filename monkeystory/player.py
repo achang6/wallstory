@@ -79,7 +79,7 @@ class Player(pygame.sprite.Sprite):
             self.image = self.rightface[0]
         else:
             self.image = self.leftface[0]
-            
+        
         # horizontal collision testing
         wallbox = spritecollide(self,self.level.platform_list,False)
         for wall in wallbox:
@@ -90,10 +90,10 @@ class Player(pygame.sprite.Sprite):
             elif self.dx < 0:
                 # if moving left
                 self.rect.left = wall.rect.right
-
+        
         # the second dimension (...jumping/falling)
         self.rect.y += self.dy
-        
+          
         # vertical collision testing
         wallbox = spritecollide(self,self.level.platform_list,False)
         for wall in wallbox:
@@ -105,7 +105,9 @@ class Player(pygame.sprite.Sprite):
                 # if rising
                 self.rect.top = wall.rect.bottom
 
-        '''# horizontal collisions
+ 
+           
+'''# horizontal collisions
         self.rect.x += self.dx
         contact_walls = spritecollide(self, self.walls, False)
         for contact in contact_walls:

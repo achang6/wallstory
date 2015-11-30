@@ -104,10 +104,8 @@ def main():
 
         #### moving between levels ################################
         
-        # track how far across level player has gone
-        posnow = player.rect.x + lvlnow.worldxshift
         # upon reaching the right edge
-        if posnow < lvlnow.xshiftmax:
+        if lvlnow.worldxshift < lvlnow.xshiftmax:
             # reposition
             player.rect.x = 360
             # move to next level

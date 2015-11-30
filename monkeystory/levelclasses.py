@@ -19,7 +19,7 @@ class Level():
 
     # world limits
     worldxshift = 0
-    xshiftmax = WINW - truewidth 
+    xshiftmax = 0
 
     # load image dictionary
     ilibrarian = readimagesfile('imagekeys.txt')
@@ -39,7 +39,7 @@ class Level():
     def draw(self, screen):
         # refresh first
         screen.fill(BLACK)
-        screen.blit(self.background, (self.worldxshift // 2, -1000))
+        screen.blit(self.background, (self.worldxshift, WINH-self.trueheight))
         # pygame.sprite.Group() draw function
         self.platform_list.draw(screen)
         self.enemy_list.draw(screen)
@@ -62,6 +62,7 @@ class Level01(Level):
         self.background = self.ilibrarian['foggyforest']
         self.truewidth = 2560
         self.trueheight = 1440
+        self.xshiftmax = WINW - self.truewidth
 
         # platform creation array
         level = (
@@ -86,6 +87,7 @@ class Level02(Level):
         self.background = self.ilibrarian['foggyforest']
         self.truewidth = 2560
         self.trueheight = 1440
+        self.xshiftmax = WINW - self.truewidth
 
         # platform creation array
         level = (

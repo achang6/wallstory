@@ -1,6 +1,7 @@
 import pygame
 from wallcon import *
 from pygame.sprite import spritecollide
+from filereader import readimagesfile
 
 class Baddy(pygame.sprite.Sprite):
     #### basic attribute declarations ####
@@ -15,11 +16,14 @@ class Baddy(pygame.sprite.Sprite):
     baddyspeed = 1
     # some baddies... can fly!
     wings = False
+    # running out of image dictionary names
+    iselfies = readimagesfile('imagekeys.txt')
     
     #### class functions ####
     def __init__(self,player):
         super(Player,self).__init__()
         # set up image
+        image = self.iselfies['Batbaddy']
         self.rightface.append(image)
         image = pygame.transform.flip(image,True,False)
         self.leftface.append(image)
@@ -68,4 +72,3 @@ class Batbaddy(Baddy):
     def __init__(self,player):
         Baddy.__init__(self,player)
 
-        # 

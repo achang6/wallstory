@@ -5,7 +5,7 @@ from pygame.sprite import spritecollide
 class Player(pygame.sprite.Sprite):
     #### basic attribute declarations ####
     # track what direction player is facing
-    direction = 'r'
+    direction = 'R'
     rightface = []
     leftface = []
     # track player velocities

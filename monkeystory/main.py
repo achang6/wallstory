@@ -91,13 +91,13 @@ def main():
         # for the following, rgap and lgap are from wallcon
         
         # move background left when player approaches right edge
-        if player.rect.right >= rgap:
+        if player.rect.right >= rgap and player.dx > 0:
             # diff = player.rect.right - rgap
             player.rect.right = rgap
             lvlnow.worldrevolution(-xmovespeed,0)
 
         # move background right when player approaches left edge
-        if player.rect.left <= lgap:
+        if player.rect.left <= lgap and player.dx < 0:
             # diff = lgap - player.rect.left
             player.rect.left = lgap
             lvlnow.worldrevolution(xmovespeed,0)

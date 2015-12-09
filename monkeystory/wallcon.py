@@ -7,6 +7,7 @@ RED     = (255,  0,  0)
 GREEN   = (  0,255,  0)
 BLUE    = (  0,  0,255)
 BGC     = WHITE
+SWAMP  =  ( 85, 85, 95)
 
 # common constants
 PI = 3.141592653

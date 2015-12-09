@@ -30,7 +30,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.h = self.image.get_height()
         self.dx = 0
         self.dy = 0
-        # jump law
 
     def gravity(self):
         # define gravity O.O
@@ -68,32 +67,7 @@ class Player(pygame.sprite.Sprite):
         # call when a movement key is released
         self.dx = 0
 
-    def update(self):
-        #### move ####
-        # and so there was gravity
-        self.gravity()
-
-        # horizontal motion
-        self.rect.x += self.dx
-        if self.direction == 'R':
-            self.image = self.rightface[0]
-        else:
-            self.image = self.leftface[0]
-        
-        # horizontal collision testing
-        wallbox = spritecollide(self,self.level.platform_list,False)
-        for wall in wallbox:
-            # in the event that we bump into something (wall)
-            if self.dx > 0: 
-                # if moving right
-                self.rect.right = wall.rect.left
-            elif self.dx < 0:
-                # if moving left
-                self.rect.left = wall.rect.right
-        
-        # the second dimension (...jumping/falling)
-        self.rect.y += self.dy
-          
+    def crashcontingencyY(self):
         # vertical collision testing
         wallbox = spritecollide(self,self.level.platform_list,False)
         for wall in wallbox:
@@ -101,19 +75,58 @@ class Player(pygame.sprite.Sprite):
             if self.dy > 0:
                 # if falling
                 self.rect.bottom = wall.rect.top
+                # stop goint through floors
+                self.dy = 0
             elif self.dy < 0:
                 # if rising
                 self.rect.top = wall.rect.bottom
+                # stop hanging from ceilings
+                self.dy = 5
 
- 
-           
-'''# horizontal collisions
+    def crashcontingencyX(self):
+        # horizontal collision testing
+        wallbox = spritecollide(self,self.level.platform_list,False)
+        for wall in wallbox:
+            # in the event that we bump into something (wall)
+            if self.dx > 0:
+                # if moving right
+                self.rect.right = wall.rect.left
+            elif self.dx < 0:
+                # if moving left
+                self.rect.left = wall.rect.right
+        
+    def update(self):
+        #### move ####
+        # and so there was gravity
+        self.gravity()
+
+        # horizontal motion
         self.rect.x += self.dx
+
+        # face right, face left
+        if self.direction == 'R':
+            self.image = self.rightface[0]
+        else:
+            self.image = self.leftface[0]
+        
+        # check collisions horizontally
+        self.crashcontingencyX()
+
+        # the second dimension (...jumping/falling)
+        # aka vertical motion
+        self.rect.y += self.dy
+        
+        # check collisions vertically
+        self.crashcontingencyY()
+          
+          
+'''# horizontal collisions
+        self.rect.x += self.
         contact_walls = spritecollide(self, self.walls, False)
         for contact in contact_walls:
-            if self.dx > 0:
+            if self. > 0:
                 self.rect.right = contact.rect.left
-            elif self.dx < 0: 
+            elif self. < 0: 
                 self.rect.left = contact.rect.right
 
         # vertical collisions

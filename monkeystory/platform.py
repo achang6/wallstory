@@ -16,7 +16,7 @@ BLACKGRASS = (1900,380,500,10)
 #### platform classes #############################################
 
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, specs = []):
+    def __init__(self, specs = [], spectra = None):
         super(Platform, self).__init__()
         # 0:x  1:y  2:w  3:h  4:c
         self.wh = (specs[2],specs[3])
@@ -26,7 +26,7 @@ class Platform(pygame.sprite.Sprite):
         self.rect.y = specs[1]
         self.dx = 0
         self.dy = 0
-        self.image.fill(BLACK)
+        self.image.fill(SWAMP)
 
 
     

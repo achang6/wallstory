@@ -53,6 +53,33 @@ class Level():
         for enemy in self.enemy_list:
             enemy.rect.x += xshift
 
+# So the journey begins
+class Level00(Level):
+    def __init__(self,player):
+        # sub class
+        Level.__init__(self,player)
+
+        # set background
+        self.background = self.ilibrarian['foggyforest']
+        self.truewidth = 2560
+        self.trueheight = 1440
+        self.xshiftmax = WINW - self.truewidth
+
+        # platform creation array
+        level = (
+                platform.REDGRASS,
+                platform.BLUEGRASS,
+                platform.GREENGRASS,
+                platform.BLACKGRASS
+                )
+
+        # plug level into platform_list
+        for ledge in level:
+            plat = platform.Platform(ledge)
+            plat.player = self.player
+            self.platform_list.add(plat)
+
+# first step down the road
 class Level01(Level):
     def __init__(self,player):
         # sub class
@@ -78,7 +105,112 @@ class Level01(Level):
             plat.player = self.player
             self.platform_list.add(plat)
 
+# Another step down the road
 class Level02(Level):
+    def __init__(self,player):
+        # sub class
+        Level.__init__(self,player)
+
+        # set background
+        self.background = self.ilibrarian['foggyforest']
+        self.truewidth = 2560
+        self.trueheight = 1440
+        self.xshiftmax = WINW - self.truewidth
+
+        # platform creation array
+        level = (
+                platform.REDGRASS,
+                platform.BLUEGRASS,
+                platform.GREENGRASS,
+                platform.BLACKGRASS
+                )
+
+        # plug level into platform_list
+        for ledge in level:
+            plat = platform.Platform(ledge)
+            plat.player = self.player
+            self.platform_list.add(plat)
+
+# Fork in the road
+class Level03(Level):
+    def __init__(self,player):
+        # sub class
+        Level.__init__(self,player)
+
+        # set background
+        self.background = self.ilibrarian['foggyforest']
+        self.truewidth = 2560
+        self.trueheight = 1440
+        self.xshiftmax = WINW - self.truewidth
+
+        # platform creation array
+        level = (
+                platform.REDGRASS,
+                platform.BLUEGRASS,
+                platform.GREENGRASS,
+                platform.BLACKGRASS
+                )
+
+        # plug level into platform_list
+        for ledge in level:
+            plat = platform.Platform(ledge)
+            plat.player = self.player
+            self.platform_list.add(plat)
+
+# Journey into the Earth: Eternal Flames
+class Level04(Level):
+    def __init__(self,player):
+        # sub class
+        Level.__init__(self,player)
+
+        # set background
+        self.background = self.ilibrarian['foggyforest']
+        self.truewidth = 2560
+        self.trueheight = 1440
+        self.xshiftmax = WINW - self.truewidth
+
+        # platform creation array
+        level = (
+                platform.REDGRASS,
+                platform.BLUEGRASS,
+                platform.GREENGRASS,
+                platform.BLACKGRASS
+                )
+
+        # plug level into platform_list
+        for ledge in level:
+            plat = platform.Platform(ledge)
+            plat.player = self.player
+            self.platform_list.add(plat)
+
+# Path to the End
+class Level05(Level):
+    def __init__(self,player):
+        # sub class
+        Level.__init__(self,player)
+
+        # set background
+        self.background = self.ilibrarian['foggyforest']
+        self.truewidth = 2560
+        self.trueheight = 1440
+        self.xshiftmax = WINW - self.truewidth
+
+        # platform creation array
+        level = (
+                platform.REDGRASS,
+                platform.BLUEGRASS,
+                platform.GREENGRASS,
+                platform.BLACKGRASS
+                )
+
+        # plug level into platform_list
+        for ledge in level:
+            plat = platform.Platform(ledge)
+            plat.player = self.player
+            self.platform_list.add(plat)
+
+# Great Hall
+class Level06(Level):
     def __init__(self,player):
         # sub class
         Level.__init__(self,player)

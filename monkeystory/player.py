@@ -72,36 +72,56 @@ class Player(pygame.sprite.Sprite):
         wallbox = spritecollide(self,self.level.platform_list,False)
         for wall in wallbox:
             # in the event that we bump into...
-            if self.dy > 0:
+            if self.dy > 0 and self.rect.top < wall.rect.top:
                 # if falling
                 self.rect.bottom = wall.rect.top
                 # stop goint through floors
                 self.dy = 0
-            elif self.dy < 0:
+            elif self.dy < 0 and self.rect.bottom > wall.rect.bottom:
                 # if rising
                 self.rect.top = wall.rect.bottom
                 # stop hanging from ceilings
                 self.dy = 5
+        if self.rect.bottom > WINH and self.dy > 0:
+            self.rect.bottom = WINH
+        if self.rect.top < 0 and self.dy < 0:
+            self.rect.top = 0
 
     def crashcontingencyX(self):
         # horizontal collision testing
         wallbox = spritecollide(self,self.level.platform_list,False)
         for wall in wallbox:
             # in the event that we bump into something (wall)
-            if self.dx > 0:
+            if self.dx > 0 and self.rect.left < wall.rect.left:
                 # if moving right
                 self.rect.right = wall.rect.left
-            elif self.dx < 0:
+            elif self.dx < 0 and self.rect.right > wall.rect.right:
                 # if moving left
                 self.rect.left = wall.rect.right
-        
+        if self.rect.right > WINW and self.dx > 0:
+            self.rect.right = WINW
+        if self.rect.left < 0 and self.dx < 0:
+            self.rect.left = 0
+
     def update(self):
         #### move ####
         # and so there was gravity
         self.gravity()
 
+        
+        # the second dimension (...jumping/falling)
+        # aka vertical motion
+        self.rect.y += self.dy
+        
         # horizontal motion
         self.rect.x += self.dx
+
+        # check collisions horizontally
+        self.crashcontingencyX()
+        
+        # check collisions vertically
+        self.crashcontingencyY()
+ 
 
         # face right, face left
         if self.direction == 'R':
@@ -109,16 +129,6 @@ class Player(pygame.sprite.Sprite):
         else:
             self.image = self.leftface[0]
         
-        # check collisions horizontally
-        self.crashcontingencyX()
-
-        # the second dimension (...jumping/falling)
-        # aka vertical motion
-        self.rect.y += self.dy
-        
-        # check collisions vertically
-        self.crashcontingencyY()
-          
           
 '''# horizontal collisions
         self.rect.x += self.

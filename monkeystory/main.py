@@ -30,8 +30,7 @@ def main():
 
     # create each level
     levellist = []
-    levellist.append(levels.Level01(player))
-    levellist.append(levels.Level02(player))
+    levellist.append(levels.Level00(player))
 
     # set current level
     lvlnum = 0
@@ -44,8 +43,8 @@ def main():
     player.level = lvlnow
 
     # set player position
-    player.rect.x = 360
-    player.rect.y = WINH - player.rect.h
+    player.rect.x = HWINW
+    player.rect.y = HWINH - player.rect.h
 
     # then add player to sprite list
     spritesunited.add(player)
@@ -90,20 +89,33 @@ def main():
 
         # for the following, rgap and lgap are from wallcon
         
-        # move background left when player approaches right edge
-        if player.rect.right >= rgap and player.dx > 0:
-            # diff = player.rect.right - rgap
-            player.rect.right = rgap
-            lvlnow.worldrevolution(-xmovespeed,0)
+        if not lvlnow.xlimitbreak:
+            # move background left when player approaches right edge
+            if player.rect.right >= rgap and player.dx > 0:
+                player.rect.right = rgap
+                lvlnow.worldrevolution(-xmovespeed,0)
 
-        # move background right when player approaches left edge
-        if player.rect.left <= lgap and player.dx < 0:
-            # diff = lgap - player.rect.left
-            player.rect.left = lgap
-            lvlnow.worldrevolution(xmovespeed,0)
+            # move background right when player approaches left edge
+            if player.rect.left <= lgap and player.dx < 0:
+                player.rect.left = lgap
+                lvlnow.worldrevolution(xmovespeed,0)
+
+        # for the following, tgap and bgap are from wallcon
+        
+        if not lvlnow.ylimitbreak:
+            # move background up when player goes up high
+            if player.rect.top <= tgap and player.dy < 0:
+                player.rect.top = tgap
+                lvlnow.worldrevolution(0,ymovespeed)
+
+            # move background down when player goes down 
+            if player.rect.bottom >= bgap and player.dy > 0:
+                player.rect.bottom = bgap
+                lvlnow.worldrevolution(0,-ymovespeed)
 
         #### moving between levels ################################
         
+        '''
         # upon reaching the right edge
         if lvlnow.worldxshift < lvlnow.xshiftmax:
             # reposition
@@ -113,6 +125,7 @@ def main():
                 lvlnum += 1
                 lvlnow = levellist[lvlnum]
                 player.level = lvlnow
+        '''
 
         #### draw to screen object#################################
     

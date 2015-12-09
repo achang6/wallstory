@@ -2,3 +2,9 @@
 #wimages/ball.png
 ;foggyforest
 #wimages/Foggy_Forest_by_Jake_Stewart.png
+;stage000
+#wimages/stage00_bg00.png
+;stage001
+#wimages/stage00_bg01.png
+;stage002
+#wimages/stage01_bg00.png

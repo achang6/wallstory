@@ -3,10 +3,10 @@ from wallcon import *
 from filereader import readimagesfile
 
 # define generic platform constants
-REDGRASS   = (1000,680,200,10)
-BLUEGRASS  = (1200,580,300,10)
-GREENGRASS = (1500,480,400,10)
-BLACKGRASS = (1900,380,500,10)
+REDGRASS   = (1000,680,200,10,RED)
+BLUEGRASS  = (1200,580,300,10,BLUE)
+GREENGRASS = (1500,480,400,10,GREEN)
+BLACKGRASS = (1900,380,500,10,BLACK)
 
 # load image dictionary
 # igallery = readimagesfile('imagekeys.txt')
@@ -16,7 +16,7 @@ BLACKGRASS = (1900,380,500,10)
 #### platform classes #############################################
 
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, specs = [], spectra = None):
+    def __init__(self, specs = [0,0,0,0,None]):
         super(Platform, self).__init__()
         # 0:x  1:y  2:w  3:h  4:c
         self.wh = (specs[2],specs[3])
@@ -26,7 +26,9 @@ class Platform(pygame.sprite.Sprite):
         self.rect.y = specs[1]
         self.dx = 0
         self.dy = 0
-        self.image.fill(SWAMP)
+        if specs[4] != None:
+            self.image.fill(specs[4])
+        self.destination = 0
 
 
     

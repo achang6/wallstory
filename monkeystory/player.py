@@ -35,6 +35,8 @@ class Player(pygame.sprite.Sprite):
         # define gravity O.O
         if self.dy == 0:
             self.dy = 1
+        elif self.dy > ymovespeed / 2:
+            self.dy = ymovespeed / 2
         else:
             self.dy += 0.35
         # As Atlas carries the Earth, so does the Earth carry you
@@ -81,7 +83,7 @@ class Player(pygame.sprite.Sprite):
                 # if rising
                 self.rect.top = wall.rect.bottom
                 # stop hanging from ceilings
-                self.dy = 5
+                self.dy = 1
         if self.rect.bottom > WINH and self.dy > 0:
             self.rect.bottom = WINH
         if self.rect.top < 0 and self.dy < 0:
@@ -103,6 +105,14 @@ class Player(pygame.sprite.Sprite):
         if self.rect.left < 0 and self.dx < 0:
             self.rect.left = 0
 
+    def useportal(self):
+        # check for portals
+        portalbox = spritecollide(self,self.level.portal_list,False)
+        if portalbox != []:
+            return portalbox[0].destination
+        else:
+            return 0
+ 
     def update(self):
         #### move ####
         # and so there was gravity
@@ -128,7 +138,8 @@ class Player(pygame.sprite.Sprite):
             self.image = self.rightface[0]
         else:
             self.image = self.leftface[0]
-        
+    
+           
           
 '''# horizontal collisions
         self.rect.x += self.

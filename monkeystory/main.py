@@ -23,18 +23,19 @@ def main():
     
     # set up image library and images
     ifolder = readimagesfile('imagekeys.txt')
-    print ifolder
 
     # set up player
     player = Player(ifolder['ball'])
 
     # create each level
     levellist = []
-    levellist.append(levels.Level00(player))
+    levellist.append(levels.Level01(player))
+    levellist.append(levels.Level02(player))
 
     # set current level
     lvlnum = 0
     lvlnow = levellist[lvlnum]
+    nextlevel = 0
 
     # create sprite groups for managing sprites
     spritesunited = pygame.sprite.Group()
@@ -74,6 +75,8 @@ def main():
                     player.rightmotion()
                 if event.key == pygame.K_UP:
                     player.jump()
+                if event.key == pygame.K_DOWN:
+                    nextlevel = player.useportal()
             # if a key is released
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT and player.dx < 0:
@@ -89,32 +92,43 @@ def main():
 
         # for the following, rgap and lgap are from wallcon
         
-        if not lvlnow.xlimitbreak:
+        if not lvlnow.rlimit:
             # move background left when player approaches right edge
             if player.rect.right >= rgap and player.dx > 0:
                 player.rect.right = rgap
-                lvlnow.worldrevolution(-xmovespeed,0)
+                lvlnow.worldrevolution(-xbackspeed,0)
 
+        if not lvlnow.llimit:
             # move background right when player approaches left edge
             if player.rect.left <= lgap and player.dx < 0:
                 player.rect.left = lgap
-                lvlnow.worldrevolution(xmovespeed,0)
+                lvlnow.worldrevolution(xbackspeed,0)
 
         # for the following, tgap and bgap are from wallcon
         
-        if not lvlnow.ylimitbreak:
+        if not lvlnow.tlimit:
             # move background up when player goes up high
             if player.rect.top <= tgap and player.dy < 0:
                 player.rect.top = tgap
-                lvlnow.worldrevolution(0,ymovespeed)
+                lvlnow.worldrevolution(0,ymovespeed/2)
 
+        if not lvlnow.blimit:
             # move background down when player goes down 
             if player.rect.bottom >= bgap and player.dy > 0:
                 player.rect.bottom = bgap
-                lvlnow.worldrevolution(0,-ymovespeed)
+                lvlnow.worldrevolution(0,ymovespeed / 2 * -1)
 
         #### moving between levels ################################
-        
+       
+        if nextlevel != 0:
+            lvlnum = nextlevel - 1
+            lvlnow = levellist[lvlnum]
+            player.level = lvlnow
+            player.rect.x = player.level.xplaypos
+            player.rect.y = player.level.yplaypos
+            nextlevel = 0
+
+
         '''
         # upon reaching the right edge
         if lvlnow.worldxshift < lvlnow.xshiftmax:
